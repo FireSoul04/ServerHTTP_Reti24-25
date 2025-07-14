@@ -80,6 +80,9 @@ div.center {
 
 .dungeons-images img {
     margin: 5%;
+}
+
+img.large, .dungeons-images img {
     border: 2px solid rgb(0, 173, 0);
     border-radius: 10px;
 }
@@ -92,7 +95,7 @@ div.center {
 img.large {
     width: 90%;
     height: auto;
-    padding-bottom: 5%;
+    margin-bottom: 5%;
 }
 
 #characters {
