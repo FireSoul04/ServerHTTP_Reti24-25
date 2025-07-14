@@ -53,7 +53,9 @@ div.center {
 }
 
 .dungeons-images img {
-    padding: 5%;
+    margin: 5%;
+    border: 2px solid rgb(0, 173, 0);
+    border-radius: 10px;
 }
 
 img.large {
