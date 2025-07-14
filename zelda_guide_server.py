@@ -9,8 +9,13 @@ def sendResponse(socket, status, contentType, content):
     responseHeader += 'Connection: close\r\n'
     responseHeader += '\r\n'
 
-    socket.sendall(responseHeader.encode('utf-8'))
-    socket.sendall(content)
+    try:
+        socket.sendall(responseHeader.encode('utf-8'))
+        socket.sendall(content)
+    except ConnectionAbortedError:
+        print('ConnectionAbortedError: client closed the connection before send completed')
+    except Exception as e:
+        print('Unexpected send error:', e)
 
 serverPort = 8080
 serverSocket = socket(AF_INET, SOCK_STREAM)
@@ -36,7 +41,10 @@ while True:
             mimeType, _ = mimetypes.guess_type(filepath)
             print('MIME type:', mimeType)
 
-            if mimeType == 'text/html':
+            if mimeType is None:
+                mimeType = 'application/octet-stream'
+                print('Defaulting to application/octet-stream for unknown MIME type')
+            elif mimeType == 'text/html':
                 filepath = '/www' + filepath
             filepath = '.' + filepath
             print('File path:', filepath)
@@ -45,13 +53,15 @@ while True:
                 responseBody = f.read()
                 
             sendResponse(connectionSocket, '200 OK', mimeType, responseBody)
+        else:
+            sendResponse(connectionSocket, '400 Bad Request', 'text/plain', 'Bad Request'.encode('utf-8'))
     except FileNotFoundError:
         with open('./www/notfound.html', 'rb') as f:
             notFoundPage = f.read()
 
         sendResponse(connectionSocket, '404 Not Found', 'text/html', notFoundPage)
-    except IOError as e:
-        print('IOError:', e)
+    except Exception as e:
+        print('Unexpected error:', e)
         sendResponse(connectionSocket, '500 Internal Server Error', 'text/plain', 'Internal Server Error'.encode('utf-8'))
 
     connectionSocket.close()
