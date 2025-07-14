@@ -7,17 +7,16 @@
     <link rel="stylesheet" href="www/style.css">
 </head>
 <body>
+    <div class="navigation">
+        <ul class="navigation-list">
+            <li><a href = 'index.html'">Home</a></li>
+            <li><a href = 'items.html'">Oggetti</a></li>
+            <li><a href = 'dungeons.html'">Dungeon</a></li>
+            <li><a class="active">Boss</a></li>
+        </ul>
+    </div>
     <div class = "main">
         <h1>Boss</h1>
-        <div class="dropdown">
-            <label for="pages">Guarda:</label>
-            <select name="pages" id="pages">
-                <option value="home" onclick="location.href = 'index.html'">Home</option>
-                <option value="items" onclick="location.href = 'items.html'">Oggetti</option>
-                <option value="dungeons" onclick="location.href = 'dungeons.html'">Dungeon</option>
-                <option value="bosses" selected>Boss</option>
-            </select>
-        </div>
         <h2 id="armos_knight">Cavalieri Armos</h2>
         <div class="bosses-images">
             <img src="images/bosses/1.png" alt="Armos Knight">
