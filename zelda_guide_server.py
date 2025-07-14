@@ -2,6 +2,16 @@ import sys
 import mimetypes
 from socket import *
 
+def sendResponse(socket, status, contentType, content):
+    responseHeader = f'HTTP/1.1 {status}\r\n'
+    responseHeader += f'Content-Type: {contentType}\r\n'
+    responseHeader += f'Content-Length: {len(content)}\r\n'
+    responseHeader += 'Connection: close\r\n'
+    responseHeader += '\r\n'
+
+    socket.send(responseHeader.encode())
+    socket.send(content)
+
 serverPort = 8080
 serverSocket = socket(AF_INET, SOCK_STREAM)
 server_address = ('localhost',serverPort)
@@ -33,24 +43,12 @@ while True:
 
             with open(filepath, 'rb') as f:
                 responseBody = f.read()
-            
-            responseHeader = 'HTTP/1.1 200 OK\r\n'
-            responseHeader += f'Content-Type: {mimeType}\r\n'
-            responseHeader += f'Content-Length: {len(responseBody)}\r\n'
-            responseHeader += 'Connection: close\r\n'
-            responseHeader += '\r\n'
-
-            connectionSocket.send(responseHeader.encode())
-            connectionSocket.send(responseBody)
-            connectionSocket.close()
+                
+            sendResponse(connectionSocket, '200 OK', mimeType, responseBody)
     except IOError:
-        with open('./www/notfound.html', 'r+') as f:
+        with open('./www/notfound.html', 'rb') as f:
             notFoundPage = f.read()
 
-        notFoundResponse = 'HTTP/1.1 404 Not Found\r\n'
-        notFoundResponse += '\r\n'
-        notFoundResponse += f'{notFoundPage}\r\n'
-        notFoundResponse += '\r\n'
-
-        connectionSocket.send(notFoundResponse.encode())
-        connectionSocket.close()
+        sendResponse(connectionSocket, '404 Not Found', 'text/html', notFoundPage)
+        
+    connectionSocket.close()
