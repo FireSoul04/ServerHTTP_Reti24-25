@@ -9,8 +9,8 @@ def sendResponse(socket, status, contentType, content):
     responseHeader += 'Connection: close\r\n'
     responseHeader += '\r\n'
 
-    socket.send(responseHeader.encode())
-    socket.send(content)
+    socket.sendall(responseHeader.encode('utf-8'))
+    socket.sendall(content)
 
 serverPort = 8080
 serverSocket = socket(AF_INET, SOCK_STREAM)
@@ -45,10 +45,13 @@ while True:
                 responseBody = f.read()
                 
             sendResponse(connectionSocket, '200 OK', mimeType, responseBody)
-    except IOError:
+    except FileNotFoundError:
         with open('./www/notfound.html', 'rb') as f:
             notFoundPage = f.read()
 
         sendResponse(connectionSocket, '404 Not Found', 'text/html', notFoundPage)
-        
+    except IOError as e:
+        print('IOError:', e)
+        sendResponse(connectionSocket, '500 Internal Server Error', 'text/plain', 'Internal Server Error'.encode('utf-8'))
+
     connectionSocket.close()
