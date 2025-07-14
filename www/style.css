@@ -19,7 +19,7 @@ a:hover {
 .home-button {
     position: sticky;
     top: 0;
-    margin-left: 90%;
+    text-align: right;
 }
 
 .main {
@@ -29,4 +29,13 @@ a:hover {
     margin: auto;
     color: rgb(255, 255, 255);
     background-color: rgba(0, 18, 4, 0.8);
+}
+
+#not-found {
+    text-align: center;
+}
+
+#not-found.img {
+    width: 90%;
+    height: auto;
 }
