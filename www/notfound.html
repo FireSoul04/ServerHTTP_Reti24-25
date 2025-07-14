@@ -11,7 +11,15 @@
         <p>
             <img class="large" src="images/404notfound.jpg" alt="404 Not Found">
         </p>
-        <button onclick="location.href = './index.html'">Torna alla Home</button>
+        <div class="dropdown">
+            <label for="pages">Guarda:</label>
+            <select name="pages" id="pages">
+                <option value="home" onclick="location.href = 'index.html'">Home</option>
+                <option value="items" onclick="location.href = 'items.html'">Oggetti</option>
+                <option value="dungeons" onclick="location.href = 'dungeons.html'">Dungeon</option>
+                <option value="bosses" onclick="location.href = 'bosses.html'">Boss</option>
+            </select>
+        </div>
     </div>
 </body>
 </html>

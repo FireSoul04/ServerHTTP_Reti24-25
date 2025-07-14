@@ -9,13 +9,15 @@
 <body>
     <div class="main">
         <h1>The Legend of Zelda: A Link to the Past</h1>
-        <label for="pages">Guarda:</label>
-        <select name="pages" id="pages">
-            <option value="home">Home</option>
-            <option value="items" onclick="location.href = 'items.html'">Oggetti</option>
-            <option value="dungeons" onclick="location.href = 'dungeons.html'">Dungeon</option>
-            <option value="bosses" onclick="location.href = 'bosses.html'">Boss</option>
-        </select>
+        <div class="dropdown">
+            <label for="pages">Guarda:</label>
+            <select name="pages" id="pages">
+                <option value="home" selected>Home</option>
+                <option value="items" onclick="location.href = 'items.html'">Oggetti</option>
+                <option value="dungeons" onclick="location.href = 'dungeons.html'">Dungeon</option>
+                <option value="bosses" onclick="location.href = 'bosses.html'">Boss</option>
+            </select>
+        </div>
         <h3>Trama</h3>
         <p>
             Il gioco ha come obiettivo quello di salvare la principessa Zelda e sconfiggere il malvagio Ganon.

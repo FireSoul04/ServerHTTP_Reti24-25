@@ -26,7 +26,7 @@ a:hover {
     color: rgb(0, 255, 0);
 }
 
-.home-button {
+.dropdown {
     position: sticky;
     top: 0;
     text-align: right;
@@ -45,9 +45,21 @@ div.center {
     text-align: center;
 }
 
+.dungeons-images {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.dungeons-images img {
+    padding: 5%;
+}
+
 img.large {
     width: 90%;
     height: auto;
+    padding-bottom: 5%;
 }
 
 #characters {
