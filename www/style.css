@@ -3,17 +3,13 @@ body {
     margin: 0;
 }
 
-h1 {
+h1, h3, a {
     color: rgb(0, 173, 0);
 }
 
 p {
     font-size: 18px;
     border: 1.5cm;
-}
-
-a {
-    color: rgb(0, 173, 0);
 }
 
 a:hover {
