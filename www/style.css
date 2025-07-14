@@ -1,5 +1,7 @@
 body {
     background-image: url("/images/background.jpg");
+    font-family: fantasy;
+    font-size: 18px;
     margin: 0;
 }
 
@@ -17,8 +19,6 @@ h1, h2, h3, a {
 }
 
 p, li {
-    font-family: fantasy;
-    font-size: 18px;
     border: 1.5cm;
 }
 
@@ -56,6 +56,11 @@ div.center {
     margin: 5%;
     border: 2px solid rgb(0, 173, 0);
     border-radius: 10px;
+}
+
+.bosses-images {
+    display: flex;
+    justify-content: center;
 }
 
 img.large {
