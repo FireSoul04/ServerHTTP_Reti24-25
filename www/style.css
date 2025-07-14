@@ -3,11 +3,21 @@ body {
     margin: 0;
 }
 
-h1, h3, a {
+h1, h2 {
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    text-align: center;
+}
+
+h3 {
+    font-family: 'Arial Narrow Bold', sans-serif
+}
+
+h1, h2, h3, a {
     color: rgb(0, 173, 0);
 }
 
-p {
+p, li {
+    font-family: fantasy;
     font-size: 18px;
     border: 1.5cm;
 }
@@ -31,11 +41,21 @@ a:hover {
     background-color: rgba(0, 18, 4, 0.8);
 }
 
-#not-found {
+div.center {
     text-align: center;
 }
 
-#not-found.img {
+img.large {
     width: 90%;
     height: auto;
+}
+
+#characters {
+    display: inline;
+}
+
+#characters img {
+    width: 30%;
+    height: auto;
+    padding-bottom: 5%;
 }
