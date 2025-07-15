@@ -9,7 +9,7 @@ Method to set a logger with two handlers, one handles the terminal and one the l
 If the log directory doesn't already exsits it will be created.
 """
 def setupLogger(name, logFile):
-    if !os.path.isdir('log'):
+    if not os.path.isdir('log'):
         os.mkdir('log')
     logger = logging.getLogger(name)
     logger.setLevel(logging.INFO)
