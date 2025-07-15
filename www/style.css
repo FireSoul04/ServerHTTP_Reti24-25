@@ -22,7 +22,7 @@ p, li {
     border: 1.5cm;
 }
 
-li {
+.index li {
     color: rgb(0, 255, 0);
 }
 
