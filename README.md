@@ -6,7 +6,7 @@ The server can run using any python interpreter, for example using the shell com
 ```bash
 python <path>/zelda_guide_server.py
 ```
-where path is the logical path where the file is in the server. When started, it's possible to
-use any browser as a client and insert to the URL bar the link to http://localhost:8080 with
+where path is the logical location of the file inside the server. When started, it's possible to
+use any browser as a client and insert into the research bar the link to http://localhost:8080 with
 an eventual resource (for example http://localhost:8080/favicon.ico), otherwise it will
 automatically redirect to the **index.html page**.
