@@ -1,9 +1,16 @@
+import os
 import sys
 import mimetypes
 import logging
 from socket import *
 
+"""
+Method to set a logger with two handlers, one handles the terminal and one the log file.
+If the log directory doesn't already exsits it will be created.
+"""
 def setupLogger(name, logFile):
+    if !os.path.isdir('log'):
+        os.mkdir('log')
     logger = logging.getLogger(name)
     logger.setLevel(logging.INFO)
     logConsoleHandler = logging.StreamHandler(sys.stdout)
@@ -28,9 +35,9 @@ def sendResponse(socket, status, contentType, content, logger):
     except ConnectionAbortedError:
         logger.error('ConnectionAbortedError: client closed the connection before send completed')
     except Exception as e:
-        logger.critical('Unexpected send error: ' + e)
+        logger.critical('Unexpected send error: ' + str(e))
 
-logger = setupLogger("ServerLogger", "log/server.log")
+logger = setupLogger('ServerLogger', 'log/server.log')
 serverPort = 8080
 serverSocket = socket(AF_INET, SOCK_STREAM)
 serverAddress = ('localhost', serverPort)
@@ -42,7 +49,7 @@ logger.info('The web server is up on port: ' + str(serverPort))
 while True:
     logger.info('Ready to serve...')
     connectionSocket, addr = serverSocket.accept()
-    logger.info("Connected with: " + addr[0] + ":" + str(addr[1]))
+    logger.info('Connected with: ' + addr[0] + ':' + str(addr[1]))
     try:
         message = connectionSocket.recv(1024)
         if len(message.split()) > 0:
@@ -74,7 +81,7 @@ while True:
 
         sendResponse(connectionSocket, '404 Not Found', 'text/html', notFoundPage, logger)
     except Exception as e:
-        logger.critical('Unexpected error: ' + e)
+        logger.critical('Unexpected error: ' + str(e))
         sendResponse(connectionSocket, '500 Internal Server Error', 'text/plain', 'Internal Server Error'.encode('utf-8'), logger)
 
     connectionSocket.close()
