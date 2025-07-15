@@ -53,15 +53,19 @@ serverSocket.bind(serverAddress)
 serverSocket.listen(1)
 logger.info('The web server is up on port: ' + str(serverPort))
 
+# The server will run until manually stopped
 while True:
     logger.info('Ready to serve...')
     connectionSocket, addr = serverSocket.accept()
     logger.info('Connected with: ' + addr[0] + ':' + str(addr[1]))
     try:
         message = connectionSocket.recv(1024)
+        # If the message is empty, the server will send a 400 Bad Request response
         if len(message.split()) > 0:
             filepath = message.split()[1].decode()
             logger.info('File requested: ' + filepath)
+
+            # Default path is set to index.html
             if filepath == '/':
                 filepath = '/index.html'
             
@@ -73,11 +77,12 @@ while True:
             if mimeType is None:
                 mimeType = 'application/octet-stream'
                 logger.info('Defaulting to application/octet-stream for unknown MIME type')
-            # In case the mime type is a html file the path is changed to that of a subdirectory
+            # In case the file requested is an html file the path is changed to the directory containining all html files
             elif mimeType == 'text/html':
                 filepath = '/www' + filepath
             filepath = '.' + filepath
 
+            # It sends the file requested if it exists, otherwise it will send a 404 Not Found response
             with open(filepath, 'rb') as f:
                 responseBody = f.read()
                 
@@ -85,6 +90,7 @@ while True:
         else:
             sendResponse(connectionSocket, '400 Bad Request', 'text/plain', 'Bad Request'.encode('utf-8'), logger)
     except FileNotFoundError:
+        # Sends the html page for 404 Not Found if the file requested is not found
         with open('./www/notfound.html', 'rb') as f:
             notFoundPage = f.read()
 
