@@ -22,6 +22,10 @@ def setupLogger(name, logFile):
     logger.addHandler(logFileHandler)
     return logger
 
+"""
+Method that sends a response to the socket connected considering status code of the operation, the content
+type (the MIME type), the content (the response's body) and the logger.  
+"""
 def sendResponse(socket, status, contentType, content, logger):
     responseHeader = f'HTTP/1.1 {status}\r\n'
     responseHeader += f'Content-Type: {contentType}\r\n'
@@ -37,6 +41,9 @@ def sendResponse(socket, status, contentType, content, logger):
     except Exception as e:
         logger.critical('Unexpected send error: ' + str(e))
 
+"""
+Here starts the main code
+"""
 logger = setupLogger('ServerLogger', 'log/server.log')
 serverPort = 8080
 serverSocket = socket(AF_INET, SOCK_STREAM)
@@ -58,13 +65,15 @@ while True:
             if filepath == '/':
                 filepath = '/index.html'
             
-            # Determina il tipo MIME
+            # Here is checked the type of the mime
             mimeType, _ = mimetypes.guess_type(filepath)
             logger.info('MIME type: ' + mimeType)
 
+            # In case there is no mime type specified it will be considered as the default for unknown mime type
             if mimeType is None:
                 mimeType = 'application/octet-stream'
                 logger.info('Defaulting to application/octet-stream for unknown MIME type')
+            # In case the mime type is a html file the path is changed to that of a subdirectory
             elif mimeType == 'text/html':
                 filepath = '/www' + filepath
             filepath = '.' + filepath
