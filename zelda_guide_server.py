@@ -50,7 +50,7 @@ serverSocket = socket(AF_INET, SOCK_STREAM)
 serverAddress = ('localhost', serverPort)
 serverSocket.bind(serverAddress)
 
-serverSocket.listen(1)
+serverSocket.listen(10)
 logger.info('The web server is up on port: ' + str(serverPort))
 
 # The server will run until manually stopped
